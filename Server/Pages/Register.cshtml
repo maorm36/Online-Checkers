@@ -1,0 +1,117 @@
+@page
+@model CheckersServer.Pages.RegisterModel
+@{
+    ViewData["Title"] = "הרשמה למשחק";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">📝 הרשמה למשחק חדש</h2>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+                {
+                    <div class="alert alert-success">
+                        @Model.SuccessMessage
+                    </div>
+                }
+
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="mb-4">
+                        <label class="form-label"><strong>מספר שחקנים משתתפים:</strong></label>
+                        <select asp-for="NumberOfPlayers" class="form-select w-auto" onchange="this.form.submit()">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                <option value="@i">@i שחקנים</option>
+                            }
+                        </select>
+                        <small class="text-muted">כל המשתתפים יושבים יחד מול אותו מסך ומשחקים בתורות</small>
+                    </div>
+
+                    <hr />
+
+                    <h4>פרטי השחקנים:</h4>
+
+                    @for (int i = 0; i < Model.NumberOfPlayers; i++)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-header bg-light">
+                                <strong>שחקן @(i + 1)</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">שם פרטי *</label>
+                                            <input type="text" 
+                                                   name="Players[@i].FirstName" 
+                                                   value="@(Model.Players.Count > i ? Model.Players[i].FirstName : "")"
+                                                   class="form-control" 
+                                                   required 
+                                                   minlength="2" />
+                                            <span class="field-validation-error" data-valmsg-for="Players[@i].FirstName"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">מספר מזהה (1-1000) *</label>
+                                            <input type="number" 
+                                                   name="Players[@i].IdentificationNumber" 
+                                                   value="@(Model.Players.Count > i ? Model.Players[i].IdentificationNumber : 0)"
+                                                   class="form-control" 
+                                                   required 
+                                                   min="1" 
+                                                   max="1000" />
+                                            <span class="field-validation-error" data-valmsg-for="Players[@i].IdentificationNumber"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">טלפון (10 ספרות) *</label>
+                                            <input type="text" 
+                                                   name="Players[@i].Phone" 
+                                                   value="@(Model.Players.Count > i ? Model.Players[i].Phone : "")"
+                                                   class="form-control" 
+                                                   required 
+                                                   pattern="\d{10}"
+                                                   maxlength="10" />
+                                            <span class="field-validation-error" data-valmsg-for="Players[@i].Phone"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="mb-3">
+                                            <label class="form-label">מדינה *</label>
+                                            <select name="Players[@i].CountryId" class="form-select" required>
+                                                <option value="">בחר מדינה...</option>
+                                                @foreach (var country in Model.Countries)
+                                                {
+                                                    var selected = Model.Players.Count > i && Model.Players[i].CountryId == country.CountryId;
+                                                    <option value="@country.CountryId" selected="@selected">@country.Name</option>
+                                                }
+                                            </select>
+                                            <span class="field-validation-error" data-valmsg-for="Players[@i].CountryId"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" name="action" value="register" class="btn btn-primary btn-lg">
+                            הירשם והתחל משחק
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

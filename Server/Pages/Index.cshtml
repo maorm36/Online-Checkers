@@ -1,0 +1,67 @@
+@page
+@model CheckersServer.Pages.IndexModel
+@{
+    ViewData["Title"] = "דף הבית";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">🎮 ברוכים הבאים למשחק הדמקה</h2>
+            </div>
+            <div class="card-body">
+                <p class="lead">משחק דמקה רשתי עם חוקים מותאמים!</p>
+                
+                <h4>חוקי המשחק:</h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">
+                        <strong>לוח משחק:</strong> 8 שורות על 4 עמודות
+                    </li>
+                    <li class="list-group-item">
+                        <strong>הליכה רגילה:</strong> באלכסון קדימה, משבצת אחת
+                    </li>
+                    <li class="list-group-item">
+                        <strong>צעד אחורה מיוחד:</strong> כל חייל יכול לבצע פעם אחת בלבד צעד באלכסון אחורה (ללא אכילה)
+                    </li>
+                    <li class="list-group-item">
+                        <strong>אכילה:</strong> באלכסון קדימה בלבד, קפיצה מעל חייל יריב אחד
+                    </li>
+                    <li class="list-group-item">
+                        <strong>ניצחון:</strong> הגעה ראשונה לשורה הראשונה בצד היריב, או חסימת כל מהלכי היריב
+                    </li>
+                </ul>
+
+                <h4>מגבלות זמן:</h4>
+                <p>ניתן לבחור מגבלת זמן לכל תור: 2, 5, 10 (ברירת מחדל) או 15 שניות.</p>
+                <p class="text-danger">אי עמידה במגבלת הזמן = הפסד אוטומטי!</p>
+
+                <div class="d-grid gap-2 mt-4">
+                    <a asp-page="/Register" class="btn btn-primary btn-lg">הירשם עכשיו ושחק!</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">📊 סטטיסטיקות</h4>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <h3 class="text-primary">@Model.TotalPlayers</h3>
+                        <p>שחקנים רשומים</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-success">@Model.TotalGames</h3>
+                        <p>משחקים שהושלמו</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="text-warning">@Model.TotalCountries</h3>
+                        <p>מדינות משתתפות</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

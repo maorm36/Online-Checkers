@@ -1,0 +1,62 @@
+@page
+@model CheckersServer.Pages.AboutModel
+@{
+    ViewData["Title"] = "אודות";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">ℹ️ אודות המשחק והמגישים</h2>
+            </div>
+            <div class="card-body">
+                <h4>פרטי הפרויקט</h4>
+                <ul class="list-group mb-4">
+                    <li class="list-group-item">
+                        <strong>שם הקורס:</strong> תכנות ברשת Net.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>מרצה:</strong> ארנון ברקת
+                    </li>
+                    <li class="list-group-item">
+                        <strong>סמסטר:</strong> א' תשפ"ו 2026
+                    </li>
+                    <li class="list-group-item">
+                        <strong>סוג העבודה:</strong> פרויקט גמר סמסטר
+                    </li>
+                </ul>
+
+                <h4>פרטי המגישים</h4>
+                <div class="card bg-light mb-4">
+                    <div class="card-body">
+                        <p><strong>שם:</strong> מאור מורדו </p>
+                    </div>
+                </div>
+
+                <h4>תיאור הפרויקט</h4>
+                <p>
+                    פרויקט זה מממש משחק דמקה רשתי עם חוקים מותאמים: 
+                    המשחק כולל לוח בגודל 8x4, עם חוקי הליכה ואכילה ייחודיים.
+                </p>
+
+                <h5>טכנולוגיות בשימוש:</h5>
+                <ul>
+                    <li>ASP.NET Core 8.0 עם Razor Pages</li>
+                    <li>Web API Core לתקשורת לקוח-שרת</li>
+                    <li>Entity Framework Core עם SQL Server</li>
+                    <li>WinForms לממשק המשתמש של הלקוח</li>
+                    <li>Bootstrap 5 לעיצוב האתר</li>
+                </ul>
+
+                <h5>מבנה הפרויקט:</h5>
+                <ul>
+                    <li><strong>Server:</strong> פרויקט ASP.NET Core עם Razor Pages ו-Web API</li>
+                    <li><strong>Client:</strong> אפליקציית WinForms למשחק</li>
+                    <li><strong>Database:</strong> קבצי SQL ו-dacpac לבסיסי הנתונים</li>
+                    <li><strong>KnownIssues:</strong> תיעוד בעיות ידועות</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
