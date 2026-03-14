@@ -1,0 +1,50 @@
+@page
+@model CheckersServer.Pages.Queries.AllPlayersModel
+@{
+    ViewData["Title"] = "כל השחקנים";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">📋 כל השחקנים ששיחקו עד היום</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">שחקנים עם לפחות משחק אחד שהסתיים, ממוינים לפי שם (ללא case sensitive)</p>
+
+        @if (Model.Players.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>מס' מזהה</th>
+                            <th>שם פרטי</th>
+                            <th>טלפון</th>
+                            <th>מדינה</th>
+                            <th>מספר משחקים</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.Players)
+                        {
+                            <tr>
+                                <td>@player.IdentificationNumber</td>
+                                <td>@player.FirstName</td>
+                                <td dir="ltr">@player.Phone</td>
+                                <td>@player.CountryName</td>
+                                <td>@player.GamesCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-muted mt-2">סה"כ: @Model.Players.Count שחקנים</p>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                אין שחקנים ששיחקו עדיין
+            </div>
+        }
+    </div>
+</div>

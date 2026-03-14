@@ -1,0 +1,80 @@
+@page
+@model CheckersServer.Pages.Queries.PlayerGamesModel
+@{
+    ViewData["Title"] = "משחקי שחקן";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">🔍 משחקי שחקן נבחר</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">בחר שחקן:</label>
+                    <select asp-for="SelectedPlayerName" asp-items="Model.PlayerNames" class="form-select">
+                        <option value="">-- בחר שחקן --</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">הצג משחקים</button>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.SelectedPlayerName != null)
+        {
+            <h4>משחקים של: @Model.SelectedPlayerName</h4>
+            
+            @if (Model.Games.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>מזהה משחק</th>
+                                <th>תחילת משחק</th>
+                                <th>סיום משחק</th>
+                                <th>משך זמן</th>
+                                <th>תוצאה</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var game in Model.Games)
+                            {
+                                <tr>
+                                    <td>@game.GameId</td>
+                                    <td dir="ltr">@game.StartTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td dir="ltr">@(game.EndTime?.ToString("dd/MM/yyyy HH:mm") ?? "בתהליך")</td>
+                                    <td>@(game.Duration?.ToString(@"hh\:mm\:ss") ?? "-")</td>
+                                    <td>
+                                        @switch (game.Result)
+                                        {
+                                            case "Win":
+                                                <span class="badge bg-success">ניצחון</span>
+                                                break;
+                                            case "Loss":
+                                                <span class="badge bg-danger">הפסד</span>
+                                                break;
+                                            default:
+                                                <span class="badge bg-warning">בתהליך</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted mt-2">סה"כ: @Model.Games.Count משחקים</p>
+            }
+            else
+            {
+                <div class="alert alert-info">
+                    לשחקן זה אין משחקים
+                </div>
+            }
+        }
+    </div>
+</div>

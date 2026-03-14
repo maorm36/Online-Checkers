@@ -1,0 +1,61 @@
+@page
+@model CheckersServer.Pages.Queries.GroupByCountryModel
+@{
+    ViewData["Title"] = "קיבוץ לפי מדינה";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">🌍 שחקנים מקובצים לפי מדינה</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">קיבוץ כל השחקנים לפי המדינה שלהם</p>
+
+        @if (Model.CountryGroups.Any())
+        {
+            @foreach (var group in Model.CountryGroups)
+            {
+                <div class="card mb-3">
+                    <div class="card-header bg-light">
+                        <strong>@group.CountryName</strong>
+                        <span class="badge bg-secondary ms-2">@group.Players.Count שחקנים</span>
+                    </div>
+                    <div class="card-body">
+                        @if (group.Players.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>מס' מזהה</th>
+                                            <th>שם</th>
+                                            <th>טלפון</th>
+                                            <th>משחקים</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var player in group.Players)
+                                        {
+                                            <tr>
+                                                <td>@player.IdentificationNumber</td>
+                                                <td>@player.FirstName</td>
+                                                <td dir="ltr">@player.Phone</td>
+                                                <td>@player.GamesCount</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info">
+                אין שחקנים במערכת
+            </div>
+        }
+    </div>
+</div>

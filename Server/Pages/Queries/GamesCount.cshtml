@@ -1,0 +1,44 @@
+@page
+@model CheckersServer.Pages.Queries.GamesCountModel
+@{
+    ViewData["Title"] = "כמות משחקים לשחקן";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">📊 כמות משחקים לכל שחקן</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">מציג רק שתי עמודות: שם השחקן ומספר המשחקים שלו</p>
+
+        @if (Model.PlayerCounts.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>שם שחקן</th>
+                            <th>מספר משחקים</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.PlayerCounts)
+                        {
+                            <tr>
+                                <td>@player.PlayerName</td>
+                                <td>@player.GamesCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-muted mt-2">סה"כ: @Model.PlayerCounts.Count שחקנים</p>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                אין שחקנים במערכת
+            </div>
+        }
+    </div>
+</div>

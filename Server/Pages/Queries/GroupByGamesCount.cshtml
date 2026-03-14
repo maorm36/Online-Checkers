@@ -1,0 +1,74 @@
+@page
+@model CheckersServer.Pages.Queries.GroupByGamesCountModel
+@{
+    ViewData["Title"] = "קיבוץ לפי כמות משחקים";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">📈 שחקנים מקובצים לפי כמות משחקים</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">קיבוץ שחקנים לפי כמות משחקים, בסדר יורד</p>
+
+        @if (Model.Groups.Any())
+        {
+            @foreach (var group in Model.Groups)
+            {
+                <div class="card mb-3">
+                    <div class="card-header bg-light">
+                        <strong>
+                            @if (group.GamesCount == 0)
+                            {
+                                <span>לא שיחקו</span>
+                            }
+                            else if (group.GamesCount == 1)
+                            {
+                                <span>משחק אחד</span>
+                            }
+                            else
+                            {
+                                <span>@group.GamesCount משחקים</span>
+                            }
+                        </strong>
+                        <span class="badge bg-secondary ms-2">@group.Players.Count שחקנים</span>
+                    </div>
+                    <div class="card-body">
+                        @if (group.Players.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>מס' מזהה</th>
+                                            <th>שם</th>
+                                            <th>טלפון</th>
+                                            <th>מדינה</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var player in group.Players)
+                                        {
+                                            <tr>
+                                                <td>@player.IdentificationNumber</td>
+                                                <td>@player.FirstName</td>
+                                                <td dir="ltr">@player.Phone</td>
+                                                <td>@player.CountryName</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info">
+                אין שחקנים במערכת
+            </div>
+        }
+    </div>
+</div>

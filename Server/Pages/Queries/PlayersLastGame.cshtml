@@ -1,0 +1,44 @@
+@page
+@model CheckersServer.Pages.Queries.PlayersLastGameModel
+@{
+    ViewData["Title"] = "שחקנים ומשחק אחרון";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">📅 שחקנים ותאריך המשחק האחרון</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">מיון בסדר יורד לפי שם (ללא case sensitive), מציג רק שם ותאריך משחק אחרון</p>
+
+        @if (Model.Players.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>שם פרטי</th>
+                            <th>תאריך משחק אחרון</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in Model.Players)
+                        {
+                            <tr>
+                                <td>@player.FirstName</td>
+                                <td dir="ltr">@player.LastGameDate.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-muted mt-2">סה"כ: @Model.Players.Count שחקנים</p>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                אין שחקנים ששיחקו עדיין
+            </div>
+        }
+    </div>
+</div>
