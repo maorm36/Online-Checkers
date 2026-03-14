@@ -432,13 +432,13 @@ Content-Type: application/json
 ## 📸 Screenshots
 
 ### Game Site
-![Game Site](images/GameSite.png)
+![Game Site](Images/GameSite.png)
 
 ### Game Form 
-![Game Form](images/GameForm.png)
+![Game Form](Images/GameForm.png)
 
 ### Replay Games Form
-![Replay Games Form](images/ReplayGames.png)
+![Replay Games Form](Images/ReplayGames.png)
 
 ---
 
