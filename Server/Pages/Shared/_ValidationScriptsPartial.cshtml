@@ -1,0 +1,47 @@
+@* קובץ סקריפטים לוולידציה בצד לקוח *@
+@* Client-side validation scripts partial *@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    // הגדרות עבריות לוולידציה
+    $.extend($.validator.messages, {
+        required: "שדה חובה",
+        minlength: $.validator.format("נא להזין לפחות {0} תווים"),
+        maxlength: $.validator.format("נא להזין לכל היותר {0} תווים"),
+        rangelength: $.validator.format("נא להזין ערך בין {0} ל-{1} תווים"),
+        range: $.validator.format("נא להזין ערך בין {0} ל-{1}"),
+        min: $.validator.format("נא להזין ערך גדול או שווה ל-{0}"),
+        max: $.validator.format("נא להזין ערך קטן או שווה ל-{0}"),
+        number: "נא להזין מספר",
+        digits: "נא להזין ספרות בלבד",
+        email: "נא להזין כתובת דוא\"ל תקינה",
+        equalTo: "נא להזין את אותו ערך שוב"
+    });
+
+    // פונקציה לבדיקת תעודת זהות ייחודית
+    function checkUniqueId(identificationNumber, callback) {
+        $.ajax({
+            url: '/api/game/check-id/' + identificationNumber,
+            type: 'GET',
+            success: function(data) {
+                callback(data.isAvailable);
+            },
+            error: function() {
+                callback(true); // במקרה של שגיאה, נאפשר המשך
+            }
+        });
+    }
+
+    // הוספת בדיקת טלפון מותאמת
+    $.validator.addMethod("israeliPhone", function(value, element) {
+        return this.optional(element) || /^\d{10}$/.test(value);
+    }, "מספר טלפון חייב להכיל בדיוק 10 ספרות");
+
+    // הוספת בדיקת מספר זהות בטווח
+    $.validator.addMethod("idRange", function(value, element) {
+        var num = parseInt(value);
+        return this.optional(element) || (num >= 1 && num <= 1000);
+    }, "מספר זיהוי חייב להיות בין 1 ל-1000");
+</script>
