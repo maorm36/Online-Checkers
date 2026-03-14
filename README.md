@@ -1,20 +1,20 @@
 # 🎮 Checkers Game
 
 ## 📋 Table of Contents
-- [Overview](#overview)
-- [System Requirements](#system-requirements)
-- [Installation & Setup](#installation--setup)
-- [Running the Project](#running-the-project)
-- [Project Structure](#project-structure)
-- [Game Rules](#game-rules)
-- [System Features](#system-features)
-- [Difficulty Levels](#difficulty-levels)
-- [Multi-Player Mode](#multi-player-mode)
-- [Database Queries](#database-queries)
-- [API Endpoints](#api-endpoints)
-- [Screenshots](#screenshots)
-- [Known Issues](#known-issues)
-- [Technologies Used](#technologies-used)
+- [Overview](#-overview)
+- [System Requirements](#-system-requirements)
+- [Installation & Setup](#-installation--setup)
+- [Running the Project](#️-running-the-project)
+- [Project Structure](#-project-structure)
+- [Game Rules](#-game-rules)
+- [System Features](#-system-features)
+- [Difficulty Levels](#️-difficulty-levels)
+- [Multi-Player Mode](#-multi-player-mode)
+- [Database Queries](#-database-queries)
+- [API Endpoints](#-api-endpoints)
+- [Screenshots](#-screenshots)
+- [Known Issues](#️-known-issues)
+- [Technologies Used](#️-technologies-used)
 
 ---
 
