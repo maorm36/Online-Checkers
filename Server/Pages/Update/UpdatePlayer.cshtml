@@ -1,0 +1,87 @@
+@page
+@model CheckersServer.Pages.Update.UpdatePlayerModel
+@{
+    ViewData["Title"] = "עדכון שחקן";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">✏️ עדכון פרטי שחקן</h2>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert alert-success">
+                @Model.SuccessMessage
+            </div>
+        }
+
+        <form method="post">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">בחר שחקן לעדכון:</label>
+                    <select asp-for="SelectedPlayerId" asp-items="Model.PlayerList" class="form-select" 
+                            onchange="this.form.action='?handler=Select'; this.form.submit();">
+                        <option value="">-- בחר שחקן --</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.Player != null)
+        {
+            <hr />
+            <h4>עדכון פרטי השחקן:</h4>
+            
+            <form method="post" asp-page-handler="Update">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                
+                <input type="hidden" asp-for="SelectedPlayerId" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">מספר מזהה (לא ניתן לשינוי)</label>
+                            <input type="text" class="form-control" value="@Model.Player.IdentificationNumber" disabled />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">שם פרטי *</label>
+                            <input type="text" asp-for="Player.FirstName" class="form-control" required minlength="2" />
+                            <span asp-validation-for="Player.FirstName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">טלפון *</label>
+                            <input type="text" asp-for="Player.Phone" class="form-control" required pattern="\d{10}" maxlength="10" />
+                            <span asp-validation-for="Player.Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">מדינה *</label>
+                            <select asp-for="Player.CountryId" asp-items="Model.Countries" class="form-select" required>
+                                <option value="">בחר מדינה...</option>
+                            </select>
+                            <span asp-validation-for="Player.CountryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">עדכן פרטים</button>
+            </form>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

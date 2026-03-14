@@ -1,0 +1,77 @@
+@page
+@model CheckersServer.Pages.Update.DeleteGameModel
+@{
+    ViewData["Title"] = "מחיקת משחק";
+}
+
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h2 class="mb-0">🗑️ מחיקת משחק</h2>
+    </div>
+    <div class="card-body">
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="alert alert-success">
+                @Model.SuccessMessage
+            </div>
+        }
+
+        <form method="post">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">בחר משחק למחיקה:</label>
+                    <select asp-for="SelectedGameId" asp-items="Model.GameList" class="form-select">
+                        <option value="">-- בחר משחק --</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('האם אתה בטוח שברצונך למחוק את המשחק?');">
+                        מחק משחק
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        @if (Model.Games.Any())
+        {
+            <hr />
+            <h4>רשימת המשחקים במערכת:</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>מזהה משחק</th>
+                            <th>שם/שמות שחקנים</th>
+                            <th>תחילת משחק</th>
+                            <th>תוצאה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var game in Model.Games)
+                        {
+                            <tr>
+                                <td>@game.GameId</td>
+                                <td>@game.PlayerNames</td>
+                                <td dir="ltr">@game.StartTime.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>
+                                    @switch (game.Result)
+                                    {
+                                        case "Win":
+                                            <span class="badge bg-success">ניצחון</span>
+                                            break;
+                                        case "Loss":
+                                            <span class="badge bg-danger">הפסד</span>
+                                            break;
+                                        default:
+                                            <span class="badge bg-warning">בתהליך</span>
+                                            break;
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
